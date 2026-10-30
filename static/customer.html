@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuoteGuard | Customer Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      :root {
+        --bg: #f3f7ff;
+        --panel: #ffffff;
+        --primary: #0f172a;
+        --muted: #64748b;
+        --line: rgba(15,23,42,0.08);
+        --accent: #2dd4bf;
+        --blue: #3b82f6;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --success: #10b981;
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        --radius: 18px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #f3f7ff 0%, #edf5ff 100%);
+        color: var(--primary);
+        font-family: "Inter", sans-serif;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .shell {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 28px 0 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0f172a, #1d4ed8 62%, #2dd4bf);
+        color: white;
+        font-weight: 800;
+      }
+
+      .brand-text strong {
+        display: block;
+        font-size: 1.05rem;
+        letter-spacing: -0.04em;
+      }
+
+      .brand-text span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.74rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 700;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #0f172a, #1d4ed8 60%, #2dd4bf);
+        color: white;
+        box-shadow: 0 18px 30px rgba(37, 99, 235, 0.18);
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.7);
+        border-color: rgba(15,23,42,0.08);
+      }
+
+      .hero {
+        padding: 18px 0 26px;
+      }
+
+      .hero-panel {
+        background: rgba(255,255,255,0.8);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 24px 22px;
+      }
+
+      .title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 3vw, 3rem);
+        letter-spacing: -0.06em;
+      }
+
+      .subtitle {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .risk-pill {
+        background: rgba(16,185,129,0.12);
+        color: #047857;
+        border-radius: 999px;
+        padding: 10px 12px;
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+
+      .metric-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 16px 14px;
+      }
+
+      .metric-card .label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.72rem;
+        margin-bottom: 12px;
+      }
+
+      .metric-card .value {
+        display: block;
+        font-size: clamp(1.4rem, 2vw, 2.1rem);
+        letter-spacing: -0.05em;
+        font-weight: 800;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 0.9fr;
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 18px 18px 14px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .card-header h2 {
+        margin: 0;
+        font-size: 1.1rem;
+        letter-spacing: -0.04em;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .badge.green { background: rgba(16,185,129,0.12); color: #047857; }
+      .badge.amber { background: rgba(245,158,11,0.12); color: #a16207; }
+      .badge.red { background: rgba(239,68,68,0.12); color: #b91c1c; }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        padding: 12px 10px;
+        text-align: left;
+        border-bottom: 1px solid rgba(15,23,42,0.06);
+      }
+
+      th {
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+      }
+
+      .project-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .project-item {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+        background: linear-gradient(180deg, rgba(239,246,255,0.7), rgba(255,255,255,0.9));
+      }
+
+      .project-item strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .project-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+      }
+
+      .progress {
+        height: 8px;
+        background: rgba(15,23,42,0.06);
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 12px;
+      }
+
+      .progress span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #2dd4bf, #3b82f6);
+      }
+
+      .empty-state {
+        min-height: 280px;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 12px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .empty-state i {
+        font-size: 2rem;
+        color: var(--blue);
+      }
+
+      @media (max-width: 900px) {
+        .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .summary-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 620px) {
+        .topbar, .title-row { flex-direction: column; align-items: flex-start; }
+        .metrics-grid { grid-template-columns: 1fr; }
+        table { display: block; overflow-x: auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">Q</span>
+          <div class="brand-text">
+            <strong>QuoteGuard</strong>
+            <span>Customer intelligence</span>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <a class="btn btn-secondary" href="/dashboard">Back to dashboard</a>
+          <a class="btn btn-primary" href="/app">Home</a>
+        </div>
+      </header>
+
+      <main class="hero">
+        <div class="hero-panel">
+          <div class="title-row">
+            <div>
+              <h1>Customer intelligence</h1>
+              <p class="subtitle">Customer performance and project history will appear here once records are added.</p>
+            </div>
+            <span class="risk-pill">No customer selected</span>
+          </div>
+
+          <div class="empty-state">
+            <i class="fa-solid fa-users"></i>
+            <strong>No customer data yet</strong>
+            <span>Create a customer and attach quotes or projects to start building intelligence.</span>
+            <a class="btn btn-primary" href="/app">Create your first record</a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
